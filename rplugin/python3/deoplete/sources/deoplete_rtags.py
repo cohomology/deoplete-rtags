@@ -41,7 +41,10 @@ class Source(Base):
         stdout_data_decoded = stdout_data.decode("utf-8", 'ignore')  
         if stdout_data_decoded == "":
             return []
-        completions_json = json.loads(stdout_data_decoded)
+        try:
+            completions_json = json.loads(stdout_data_decoded)
+        except:
+            return []
         completions = []
         for raw_completion in completions_json['completions']:
             completion = {'dup': 1}
